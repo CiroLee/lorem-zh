@@ -1,0 +1,7 @@
+dist
+lib
+node_modules
+coverage
+.Ds_Store
+package-lock.json
+yarn-lock.json

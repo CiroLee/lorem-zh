@@ -1,0 +1,58 @@
+# lorem-zh
+
+lorem-zh 或许是最轻量的用来生成随机中文片段的`Javascript`工具包。使用`Typescript`编写， API 简单易用，且拥有良好的类型提示， 适用于浏览器和 NodeJs。
+
+## 安装
+
+```shell
+npm install lorem-zh
+```
+
+## 使用
+
+```typescript
+// ESM
+import { LoremZh } from 'lorem-zh';
+// CommonJS
+const { LoremZh } = require('lorem-zh');
+```
+
+```typescript
+const loremZh = new LoremZh();
+
+// e.g. 随机返回一个词
+loremZh.word();
+```
+
+## 参数
+
+```typescript
+import data from 'xxxx';
+const loremZh = new LoremZh({
+  random: 10,
+  dataSource: data,
+});
+
+// index.d.ts
+interface ILoremZhConfig {
+  random: number; // 基础随机数， 相关随机计算基于random参数，默认为10
+  dataSource?: string[]; // 数据源，默认为内置的2500中文常用字
+}
+```
+
+## API
+
+| 名称                                                              | 描述                                                                                                                                                                                           |
+| ----------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| letter(): string                                                  | 随机返回一个汉字                                                                                                                                                                               |
+| word(range?: number \| [IRange](./src/types/lorem-zh.ts)): string | [range: Optional] 随机返回一个词。range 为 number 时， 词由 range 个汉字组成; range 为范围数组([min, max]), 字数随机在[min, max]之间。未传参数时，将基于全局参数 random 随机确定字数           |
+| sentence(range?: number \| [IRange](./src/types/lorem-zh.ts)) )   | [range: Optional] 随机返回一个句子。range 为 number 时， 句子由 range 个词组成; range 为范围数组([min, max]), 词的数量随机在[min, max]之间。未传参数时，将基于全局参数 random 随机确定数量     |
+| paragraph(range: number \| [IRange](./src/types/lorem-zh.ts) )    | [range: Optional] 随机返回一个段落。range 为 number 时， 段落由 range 个句子组成; range 为范围数组([min, max]), 句子的数量随机在[min, max]之间。未传参数时，将基于全局参数 random 随机确定数量 |
+| num(range: [IRange](./src/types/lorem-zh.ts)): number             | 返回[min,max]之间的随机数，包含 min 和 max。注：min 和 max 可以为任意数字(Infinity 和-Infinity 除外), 计算时会取 min 和 max 的绝对值比较， 因此 min 和 max 的位置并不重要                      |
+| randomArrayItem<T>(arr: T[]): T                                   | 随机返回数组中的某个元素                                                                                                                                                                       |
+
+
+
+## NOTE
+
+内置的常用2500中文汉字来自：https://www.zdic.net/zd/zb/cc1/

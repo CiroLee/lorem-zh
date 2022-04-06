@@ -8,7 +8,7 @@ export default defineConfig((options: Options) => {
     dts: {
       entry: ['src/index.ts'],
     },
-    minify: false,
+    minify: true,
     watch: options.watch,
     clean: true,
     splitting: true,

@@ -1,19 +1,30 @@
 import wordsZh from './constants/words-zh';
+import lastNamesZh from './constants/lastnames-zh';
 import { IRange, ILoremZhConfig } from './types/lorem-zh';
 
 export default class LoremZh {
   public random: number;
   public data: string[];
+  public lastNamesData: string[];
+  private maxLength: number; // 常用汉字数组最大长度
+  private lastNamesMaxLength: number; // 姓数组最大长度
   // 常用句尾标点符号：。 ？ ！
   public commonTrailPunctutations = ['\u3002', '\uff1f', '\uff01']; // 。？！
-  private maxLength: number;
-  constructor(config: ILoremZhConfig) {
+  constructor(
+    config: ILoremZhConfig = {
+      random: 10,
+      dataSource: wordsZh,
+      lastNamseSource: lastNamesZh,
+    }
+  ) {
     if (typeof config.random !== 'number' || !this.validNumber(config.random)) {
       throw Error('config.ramdom must be a number or it is invalid');
     }
-    this.random = config.random || 10;
-    this.data = config.dataSource || wordsZh;
+    this.random = config.random;
+    this.data = config.dataSource as string[];
+    this.lastNamesData = config.lastNamseSource as string[];
     this.maxLength = this.data.length;
+    this.lastNamesMaxLength = this.lastNamesData.length;
   }
   // 对num函数的类型守卫封装, 主要用在sentence, paragraph函数
   private randomLength(range?: number | IRange): number {
@@ -87,5 +98,28 @@ export default class LoremZh {
       paragraph += this.sentence(this.randomLength());
     }
     return paragraph;
+  }
+  /**
+   * @desc 随机返回一个中文姓
+   */
+  lastName(): string {
+    return this.lastNamesData[this.num([0, this.lastNamesMaxLength])];
+  }
+  names(range?: number | IRange): string {
+    let names = '';
+    const len = this.randomLength(range);
+    for (let i = 0; i < len; i = i + 1) {
+      const lastName = this.lastName();
+      let name = '';
+      // 姓1~2个字, 名在1~2个字， 3个字以上的姓， 名最多3个字, 这样看起来更像人名...
+      if (lastName.length < 3) {
+        name = this.word([1, 2]);
+      } else {
+        name = this.word([1, 3]);
+      }
+      names += `${lastName}${name},`;
+    }
+
+    return names.replace(/,$/g, '');
   }
 }

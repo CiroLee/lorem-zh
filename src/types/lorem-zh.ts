@@ -1,6 +1,7 @@
 export type IRange = [number, number];
 
 export interface ILoremZhConfig {
-  random: number;
+  random?: number;
   dataSource?: string[];
+  lastNamseSource?: string[];
 }

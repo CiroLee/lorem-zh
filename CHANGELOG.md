@@ -1,3 +1,9 @@
+## 2022-4-17
+
+version 0.0.6
+bugfix: 修复数据源最大长度超限问题
+bugfix: 去除 sentence, paragraph 参数的默认值
+
 ## 2022-4-14
 
 version 0.0.5  

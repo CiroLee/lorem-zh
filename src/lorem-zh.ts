@@ -23,8 +23,8 @@ export default class LoremZh {
     this.random = config.random;
     this.data = config.dataSource as string[];
     this.lastNamesData = config.lastNamseSource as string[];
-    this.maxLength = this.data.length;
-    this.lastNamesMaxLength = this.lastNamesData.length;
+    this.maxLength = this.data.length - 1;
+    this.lastNamesMaxLength = this.lastNamesData.length - 1;
   }
   // 对num函数的类型守卫封装, 主要用在sentence, paragraph函数
   private randomLength(range?: number | IRange): number {
@@ -79,7 +79,7 @@ export default class LoremZh {
   /**
    * @desc 随机生成句子
    */
-  sentence(range: number | IRange = 1): string {
+  sentence(range?: number | IRange): string {
     let scentence = '';
     const len = this.randomLength(range);
     for (let i = 0; i < len; i = i + 1) {
@@ -91,7 +91,7 @@ export default class LoremZh {
   /**
    * @desc 随机生成段落
    */
-  paragraph(range: number | IRange = 1): string {
+  paragraph(range?: number | IRange): string {
     let paragraph = '';
     const len = this.randomLength(range);
     for (let i = 0; i < len; i = i + 1) {

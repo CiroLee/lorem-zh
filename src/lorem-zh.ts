@@ -29,9 +29,9 @@ export default class LoremZh {
   // 对num函数的类型守卫封装, 主要用在sentence, paragraph函数
   private randomLength(range?: number | IRange): number {
     if (!range || (typeof range === 'number' && this.validNumber(range))) {
-      return range ? Math.floor(range) : this.num([1, this.random]);
+      return range ? Math.floor(range) : this.integer([1, this.random]);
     }
-    return this.num(range as IRange);
+    return this.integer(range as IRange);
   }
   // 验证数字是否有有效数字
   private validNumber(num: number): boolean {
@@ -48,7 +48,7 @@ export default class LoremZh {
   /**
    * @desc 返回[min, max]之间的随机数, 包含min和max
    */
-  num(range: [number, number]): number {
+  private integer(range: [number, number]): number {
     const _min = Math.abs(Math.ceil(Math.min(...range)));
     const _max = Math.abs(Math.floor(Math.max(...range)));
     return Math.floor(Math.random() * (_max - _min + 1) + _min);
@@ -56,14 +56,14 @@ export default class LoremZh {
   /**
    * @desc 随机返回数组中的某个元素
    */
-  randomArrayItem<T>(arr: T[]): T {
-    return arr[this.num([0, arr.length - 1])];
+  private randomArrayItem<T>(arr: T[]): T {
+    return arr[this.integer([0, arr.length - 1])];
   }
   /**
    * @desc 随机返回一个汉字
    */
   letter(): string {
-    return this.data[this.num([0, this.maxLength])];
+    return this.data[this.integer([0, this.maxLength])];
   }
   /**
    * @desc 随机生成一个词
@@ -83,7 +83,7 @@ export default class LoremZh {
     let scentence = '';
     const len = this.randomLength(range);
     for (let i = 0; i < len; i = i + 1) {
-      const wordNum = this.num([1, this.random]);
+      const wordNum = this.integer([1, this.random]);
       scentence += `${this.word(wordNum)}\uff0c`;
     }
     return scentence.replace(/\uff0c$/g, this.randomArrayItem(this.commonTrailPunctutations));
@@ -103,7 +103,7 @@ export default class LoremZh {
    * @desc 随机返回一个中文姓
    */
   lastName(): string {
-    return this.lastNamesData[this.num([0, this.lastNamesMaxLength])];
+    return this.lastNamesData[this.integer([0, this.lastNamesMaxLength])];
   }
   names(range?: number | IRange): string {
     let names = '';

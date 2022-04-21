@@ -1,3 +1,10 @@
+## 2022-4-21
+
+version 0.1.0  
+修改 num 函数为 integer num 函数返回的是随机整数, integer 更符合  
+修改 integer(原 num), randomArrayItem 函数为 private, 这两个函数与 lorem 不是强相关，不再向外暴露
+更改引入方式。
+
 ## 2022-4-17
 
 version 0.0.6

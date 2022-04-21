@@ -1,2 +1,3 @@
-export { default as LoremZh } from './lorem-zh';
+import LoremZh from './lorem-zh';
+export default LoremZh;
 export * from './types/lorem-zh';

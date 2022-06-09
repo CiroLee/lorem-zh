@@ -8,8 +8,6 @@ export default class LoremZh {
   public lastNamesData: string[];
   private maxLength: number; // 常用汉字数组最大长度
   private lastNamesMaxLength: number; // 姓数组最大长度
-  // 常用句尾标点符号：。 ？ ！
-  public commonTrailPunctutations = ['\u3002', '\uff1f', '\uff01']; // 。？！
   constructor(
     config: ILoremZhConfig = {
       random: 10,
@@ -54,12 +52,6 @@ export default class LoremZh {
     return Math.floor(Math.random() * (_max - _min + 1) + _min);
   }
   /**
-   * @desc 随机返回数组中的某个元素
-   */
-  private randomArrayItem<T>(arr: T[]): T {
-    return arr[this.integer([0, arr.length - 1])];
-  }
-  /**
    * @desc 随机返回一个汉字
    */
   letter(): string {
@@ -86,7 +78,7 @@ export default class LoremZh {
       const wordNum = this.integer([1, this.random]);
       scentence += `${this.word(wordNum)}\uff0c`;
     }
-    return scentence.replace(/\uff0c$/g, this.randomArrayItem(this.commonTrailPunctutations));
+    return scentence.replace(/\uff0c$/g, '。');
   }
   /**
    * @desc 随机生成段落
